@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active-link-color[aria-current="page"] {
+  color: yellow; /* Ganti dengan warna yang Anda inginkan */
+}
+
+.bg-auth {
+  /* background-image: url("/assets/bg-login.jpg");
+  background-size: cover;
+  background-position: center; */
+  /* background-color: aqua; */
+  width: 100vw;
+  height: 100vh;
+}
+
+.bg-card-auth {
+  background-image: url("/images/bg-login.jpg");
+  background-size: cover;
+  background-position: center;
+}
