@@ -43,8 +43,6 @@ export default function FeatureSidebar() {
   const titleCandidates = Object.values(property);
   const title = property?.Jdl ?? titleCandidates[0] ?? "Feature";
 
-  console.log(data)
-
   return (
     <aside
       className={`

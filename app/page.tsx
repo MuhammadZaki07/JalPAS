@@ -51,7 +51,7 @@ export default function Home() {
   , [loadRoads, selectedYear]);
   // console.log("rerender")
 
-  {console.log("rerender")}
+  // {console.log("rerender")}
   return (
     <div className="flex flex-col items-stretch h-screen">
       <NavbarWidget />
