@@ -70,6 +70,7 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
     kerikil.current = 0;
     tanah.current = 0;
   };
+  
 
   useEffect(() => {
     const rerender = () => {
@@ -247,8 +248,10 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
               )}
             </h6>
             <div
-              className={`transition-all duration-500 ease-in-out ${
-                isOpenSurfaceType ? "opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                isOpenSurfaceType
+                  ? "max-h-[800px] opacity-100 overflow-x-auto"
+                  : "max-h-0 opacity-0"
               }`}
             >
               <Table className="mt-3">
@@ -309,10 +312,10 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
               )}
             </h6>
             <div
-              className={`transition-all duration-500 ease-in-out ${
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
                 isOpenTypeCondition
-                  ? "max-h-[500px] opacity-100"
-                  : "max-h-0 opacity-0 overflow-hidden"
+                  ? "max-h-[800px] opacity-100 overflow-x-auto"
+                  : "max-h-0 opacity-0"
               }`}
             >
               <Table className="mt-3 max-w-full">
@@ -441,9 +444,11 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
                 </>
               )}
             </h6>
-            <div
-              className={`transition-all duration-500 ease-in-out ${
-                isDataPerSta ? "max-h-[800px] opacity-100" : "max-h-0 overflow-hidden opacity-0"
+             <div
+              className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                isDataPerSta
+                  ? "h-auto opacity-100 overflow-x-auto"
+                  : "max-h-0 opacity-0"
               }`}
             >
               <Table className="mt-3">
@@ -471,7 +476,8 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
                       return (
                         <TableRow key={sta.id} className="text-xs sm:text-md">
                           <TableCell className="text-gray-500">
-                            {sta.nomorRuas}
+                            {/* awalnya {sta.nomorRuas} cuman di response ngga ada saya ganti {sta.id} */}
+                            {sta.id}
                           </TableCell>
                           <TableCell className="text-gray-500">
                             {sta.sta}

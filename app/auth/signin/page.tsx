@@ -33,13 +33,13 @@ const username = useRef("");
          }}>
         <div className="h-full w-full flex flex-row gap-6 p-0 rounded-3xl">
             <div className="basis-1/2 h-full bg-card-auth rounded-s-3xl p-8 lg:flex flex-col justify-center items-center hidden">
-            <img src="/logo.png" className="xl:w-48 lg:w-24" alt="" />
+            <img src="/logo.png" className="xl:w-48 lg:w-24 select-none pointer-events-none" alt="Logo" />
             <h4 className="mt-8 font-bold text-2xl xl:text-4xl">JAJALENPAS</h4>
             <p>Jaringan Jalan Kabupaten Pasuruan</p>
           </div>
           <div className="basis-full lg:basis-1/2 py-8 px-6 flex flex-col lg:justify-center overflow-y-auto">
             <div className="lg:hidden flex flex-col justify-center items-center mb-6">
-              <img src="/logo.png" className="w-16 sm:w-24" alt="" />
+              <img src="/logo.png" className="w-16 sm:w-24 select-none pointer-events-none" alt="Logo" />
               <h4 className="mt-8 font-bold text-xl sm:text-2xl">JAJALENPAS</h4>
               <p className="text-[.8rem] sm:text-base">
                 Jaringan Jalan Kabupaten Pasuruan

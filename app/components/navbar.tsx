@@ -28,8 +28,8 @@ export const NavbarWidget = () => {
 
   return (
     <Navbar
-      className="bg-green-600 !px-24 relative overflow-visible"
-      fluid={false}
+      className="bg-green-600 lg:!px-24 !px-6 relative flex justify-between w-full"
+      // fluid={true}
       theme={{
         link: {
           active: {
@@ -43,8 +43,8 @@ export const NavbarWidget = () => {
         <Image
           src="https://jajalenpas.pasuruankab.com/logo.png"
           width={40}
-          height={40}
-          className="mr-3 h-6 sm:h-9"
+          height={0}
+          className="mr-3 h-auto sm:h-9"
           alt="Flowbite React Logo"
         />
         <span className="self-center whitespace-nowrap text-xl font-semibold text-white">

@@ -66,7 +66,7 @@ const AutoInvalidateMapSize = () => {
   
     useEffect(() => {
       setTimeout(() => {
-        console.log("invalidate map size");
+        // console.log("invalidate map size");
         map.invalidateSize();
       }, 500);
     }, [map, isLayerSidebar, isFeatureSidebar]);

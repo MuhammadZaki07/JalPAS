@@ -31,7 +31,7 @@ export default function RoadConditionSidebar() {
     <aside
       className={clsx(
         selectedRuas || selectedSta
-          ? "lg:w-4/6 xl:w-1/3 w-full p-4 shrink-0"
+          ? "lg:w-4/6 xl:w-1/3 w-2/3 p-4 shrink-0"
           : "w-0 p-0",
         "transition-all duration-500 ease-in-out overflow-y-auto border-r h-full  bg-white"
       )}

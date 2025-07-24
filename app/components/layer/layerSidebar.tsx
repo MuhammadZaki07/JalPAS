@@ -24,10 +24,10 @@ export default function LayerSidebar() {
 
     return (
         <aside className={`
-            ${isVisible ? "md:w-1/3 xl:w-1/4 2xl:w-1/5 w-full shrink-0" :"w-0 p-0"}
+            ${isVisible ? "md:w-1/3 xl:w-1/4 2xl:w-1/5 w-1/2 shrink-0" :"w-0 p-0"}
             transition-all duration-300 ease-in-out
             h-full border-l bg-white`}>
-            <button
+            {/* <button
                 className="md:hidden text-red-500
                 w-full text-lg p-4 flex justify-center items-center"
                 onClick={() => {
@@ -35,7 +35,7 @@ export default function LayerSidebar() {
                 }}
             >
                 Tutup
-            </button>
+            </button> */}
 
             {
                 isImporting ? (

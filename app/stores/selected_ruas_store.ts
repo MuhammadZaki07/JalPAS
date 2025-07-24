@@ -27,7 +27,7 @@ const useSelectedRuasStore = create<SelectedRuasStore>((set, get) => ({
       const response = await fetch(`/api/roads/${idJalan}/ruas/${nomorRuas}`);
       const result = await response.json();
 
-      console.log(result as RuasWithSta);
+      // console.log(result as RuasWithSta);
 
       set({ selected: result as RuasWithSta, isLoading: false });
     } catch (error) {

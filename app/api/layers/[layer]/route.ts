@@ -68,6 +68,6 @@ export async function PATCH(
       ...body,
     },
   });
-  console.log(feature);
+  // console.log(feature);
   return Response.json(feature);
 }
