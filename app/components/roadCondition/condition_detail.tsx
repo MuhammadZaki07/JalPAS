@@ -20,7 +20,7 @@ import { Button, Table, TableBody, TableCell, TableRow } from "flowbite-react";
 //     TableRow,
 // } from "@/components/ui/table";
 // import { DialogTrigger } from "@radix-ui/react-dialog";
-import { ChevronDownCircle, Eye } from "lucide-react";
+import { ChevronDownCircle, ChevronUpCircle, Eye } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 // import ImageDialog from "../Dialog/ImageDiaolog";
 
@@ -28,10 +28,13 @@ type ConditionDetailProps = {
   ruas: RuasWithSta;
 };
 export default function ConditionDetail({ ruas }: ConditionDetailProps) {
-    const { set: setSelectedSta } = useSelectedStaStore();
-//   const { setSelectedSta } = useSelectedStaStore((selectedSta) => ({
-//     setSelectedSta: selectedSta.set,
-//   }));
+  const { set: setSelectedSta } = useSelectedStaStore();
+  const [isOpenSurfaceType, setIsOpenSurfaceType] = useState(true);
+  const [isOpenTypeCondition, setIsOpenTypeCondition] = useState(false);
+  const [isDataPerSta, setOpenDataPerSta] = useState(false);
+  // const { setSelectedSta } = useSelectedStaStore((selectedSta) => ({
+  //   setSelectedSta: selectedSta.set,
+  // }));
   const [render, setRender] = useState(0);
 
   const panjangJalan = useRef(0);
@@ -89,52 +92,51 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
         sortSta(ruas.sta);
         ruas.sta.forEach((sta: any, index: number) => {
           if (sta.kondisi === "Baik") {
-            
-            baik.current += index > 0
-              ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
-              : formatSta(sta.sta);
+            baik.current +=
+              index > 0
+                ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
+                : formatSta(sta.sta);
           } else if (sta.kondisi === "Sedang") {
-            
-            sedang.current += index > 0
-              ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
-              : formatSta(sta.sta);
+            sedang.current +=
+              index > 0
+                ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
+                : formatSta(sta.sta);
           } else if (sta.kondisi === "Rusak Ringan") {
-            
-            rusakRingan.current += index > 0
-              ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
-              : formatSta(sta.sta);
+            rusakRingan.current +=
+              index > 0
+                ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
+                : formatSta(sta.sta);
           } else if (sta.kondisi === "Rusak Berat") {
-            
-            rusakBerat.current += index > 0
-              ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
-              : formatSta(sta.sta);
+            rusakBerat.current +=
+              index > 0
+                ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
+                : formatSta(sta.sta);
           }
 
           if (sta.perkerasan === "Aspal") {
-            
-            aspal.current += index > 0
-              ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
-              : formatSta(sta.sta);
+            aspal.current +=
+              index > 0
+                ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
+                : formatSta(sta.sta);
           } else if (sta.perkerasan === "Beton") {
-            
-            beton.current += index > 0
-              ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
-              : formatSta(sta.sta);
+            beton.current +=
+              index > 0
+                ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
+                : formatSta(sta.sta);
           } else if (sta.perkerasan === "Kerikil") {
-            
-            kerikil.current += index > 0
-              ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
-              : formatSta(sta.sta);
+            kerikil.current +=
+              index > 0
+                ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
+                : formatSta(sta.sta);
           } else if (sta.perkerasan === "Tanah") {
-            
-            tanah.current += index > 0
-              ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
-              : formatSta(sta.sta);
+            tanah.current +=
+              index > 0
+                ? formatSta(sta.sta) - formatSta(ruas.sta[index - 1].sta)
+                : formatSta(sta.sta);
           }
         });
         rerender();
       }
-
     };
 
     cekPanjangJalan();
@@ -143,7 +145,6 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
 
     // setRender((prev) => prev + 1);
   }, [ruas?.sta]);
-
 
   return (
     <>
@@ -225,11 +226,34 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
         <>
           <div className="w-full p-1 mt-6">
             <h6 className="font-bold flex gap-2 items-center text-sm sm:text-md">
-              <ChevronDownCircle size={14} /> PANJANG TIPE PERMUKAAN
+              {isOpenSurfaceType ? (
+                <>
+                  <ChevronUpCircle
+                    size={14}
+                    className="cursor-pointer"
+                    onClick={() => setIsOpenSurfaceType(false)}
+                  />
+                  PANJANG TIPE PERMUKAAN
+                </>
+              ) : (
+                <>
+                  <ChevronDownCircle
+                    className="cursor-pointer"
+                    onClick={() => setIsOpenSurfaceType(true)}
+                    size={14}
+                  />{" "}
+                  PANJANG TIPE PERMUKAAN
+                </>
+              )}
             </h6>
-            <Table className="mt-3">
-              <Table.Head className="text-xs sm:text-md">
-                  <Table.HeadCell className="font-bold text-black ">
+            <div
+              className={`transition-all duration-500 ease-in-out ${
+                isOpenSurfaceType ? "opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+              }`}
+            >
+              <Table className="mt-3">
+                <Table.Head className="text-xs sm:text-md">
+                  <Table.HeadCell className="font-bold text-black">
                     ASPAL / PENETRASI / MAKADAM
                   </Table.HeadCell>
                   <Table.HeadCell className="font-bold text-black">
@@ -241,24 +265,58 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
                   <Table.HeadCell className="font-bold text-black">
                     TANAH / BELUM TEMBUS
                   </Table.HeadCell>
-              </Table.Head>
-              <Table.Body>
-                <Table.Row className="text-xs sm:text-md">
-                  <Table.Cell className="text-gray-500">{aspal.current}</Table.Cell>
-                  <Table.Cell className="text-gray-500">{beton.current}</Table.Cell>
-                  <Table.Cell className="text-gray-500">{kerikil.current}</Table.Cell>
-                  <Table.Cell className="text-gray-500">{tanah.current}</Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table>
+                </Table.Head>
+                <Table.Body>
+                  <Table.Row className="text-xs sm:text-md">
+                    <Table.Cell className="text-gray-500">
+                      {aspal.current}
+                    </Table.Cell>
+                    <Table.Cell className="text-gray-500">
+                      {beton.current}
+                    </Table.Cell>
+                    <Table.Cell className="text-gray-500">
+                      {kerikil.current}
+                    </Table.Cell>
+                    <Table.Cell className="text-gray-500">
+                      {tanah.current}
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
+            </div>
           </div>
 
           <div className="w-full p-1 mt-6">
             <h6 className="font-bold flex items-center gap-2 text-sm sm:text-md">
-              <ChevronDownCircle size={14} /> PANJANG TIAP KONDISI
+              {isOpenTypeCondition ? (
+                <>
+                  <ChevronUpCircle
+                    size={14}
+                    className="cursor-pointer"
+                    onClick={() => setIsOpenTypeCondition(false)}
+                  />
+                  PANJANG TIAP KONDISI
+                </>
+              ) : (
+                <>
+                  <ChevronDownCircle
+                    className="cursor-pointer"
+                    onClick={() => setIsOpenTypeCondition(true)}
+                    size={14}
+                  />{" "}
+                  PANJANG TIAP KONDISI
+                </>
+              )}
             </h6>
-            <Table className="mt-3 max-w-full">
-              <Table.Head className="text-xs sm:text-md">
+            <div
+              className={`transition-all duration-500 ease-in-out ${
+                isOpenTypeCondition
+                  ? "max-h-[500px] opacity-100"
+                  : "max-h-0 opacity-0 overflow-hidden"
+              }`}
+            >
+              <Table className="mt-3 max-w-full">
+                <Table.Head className="text-xs sm:text-md">
                   <Table.HeadCell
                     className="text-center text-black font-bold"
                     colSpan={2}
@@ -283,100 +341,158 @@ export default function ConditionDetail({ ruas }: ConditionDetailProps) {
                   >
                     RUSAK BERAT
                   </Table.HeadCell>
-              </Table.Head>
-              <Table.Head className="text-xs sm:text-md">
-                  <Table.HeadCell className="text-black font-bold">m</Table.HeadCell>
-                  <Table.HeadCell className="text-black font-bold">%</Table.HeadCell>
-                  <Table.HeadCell className="text-black font-bold">m</Table.HeadCell>
-                  <Table.HeadCell className="text-black font-bold">%</Table.HeadCell>
-                  <Table.HeadCell className="text-black font-bold">m</Table.HeadCell>
-                  <Table.HeadCell className="text-black font-bold">%</Table.HeadCell>
-                  <Table.HeadCell className="text-black font-bold">m</Table.HeadCell>
-                  <Table.HeadCell className="text-black font-bold">%</Table.HeadCell>
-              </Table.Head>
-              <TableBody>
-                <TableRow className="text-xs sm:text-md">
-                  <TableCell className="text-gray-500">
-                    {baik.current > 0 ? baik.current : "-"}
-                  </TableCell>
-                  <TableCell className="text-gray-500">
-                    {baik.current > 0 ? ((baik.current / panjangJalan.current) * 100).toFixed(2) : "-"}
-                  </TableCell>
-                  <TableCell className="text-gray-500">
-                    {sedang.current > 0 ? sedang.current : "-"}
-                  </TableCell>
-                  <TableCell className="text-gray-500">
-                    {sedang.current > 0
-                      ? ((sedang.current / panjangJalan.current) * 100).toFixed(2)
-                      : "-"}
-                  </TableCell>
-                  <TableCell className="text-gray-500">
-                    {rusakRingan.current > 0 ? rusakRingan.current : "-"}
-                  </TableCell>
-                  <TableCell className="text-gray-500">
-                    {rusakRingan.current > 0
-                      ? ((rusakRingan.current / panjangJalan.current) * 100).toFixed(2)
-                      : "-"}
-                  </TableCell>
-                  <TableCell className="text-gray-500">
-                    {rusakBerat.current > 0 ? rusakBerat.current : "-"}
-                  </TableCell>
-                  <TableCell className="text-gray-500">
-                    {rusakBerat.current > 0
-                      ? ((rusakBerat.current / panjangJalan.current) * 100).toFixed(2)
-                      : "-"}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+                </Table.Head>
+                <Table.Head className="text-xs sm:text-md">
+                  <Table.HeadCell className="text-black font-bold">
+                    m
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-black font-bold">
+                    %
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-black font-bold">
+                    m
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-black font-bold">
+                    %
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-black font-bold">
+                    m
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-black font-bold">
+                    %
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-black font-bold">
+                    m
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-black font-bold">
+                    %
+                  </Table.HeadCell>
+                </Table.Head>
+                <TableBody>
+                  <TableRow className="text-xs sm:text-md">
+                    <TableCell className="text-gray-500">
+                      {baik.current > 0 ? baik.current : "-"}
+                    </TableCell>
+                    <TableCell className="text-gray-500">
+                      {baik.current > 0
+                        ? ((baik.current / panjangJalan.current) * 100).toFixed(
+                            2
+                          )
+                        : "-"}
+                    </TableCell>
+                    <TableCell className="text-gray-500">
+                      {sedang.current > 0 ? sedang.current : "-"}
+                    </TableCell>
+                    <TableCell className="text-gray-500">
+                      {sedang.current > 0
+                        ? (
+                            (sedang.current / panjangJalan.current) *
+                            100
+                          ).toFixed(2)
+                        : "-"}
+                    </TableCell>
+                    <TableCell className="text-gray-500">
+                      {rusakRingan.current > 0 ? rusakRingan.current : "-"}
+                    </TableCell>
+                    <TableCell className="text-gray-500">
+                      {rusakRingan.current > 0
+                        ? (
+                            (rusakRingan.current / panjangJalan.current) *
+                            100
+                          ).toFixed(2)
+                        : "-"}
+                    </TableCell>
+                    <TableCell className="text-gray-500">
+                      {rusakBerat.current > 0 ? rusakBerat.current : "-"}
+                    </TableCell>
+                    <TableCell className="text-gray-500">
+                      {rusakBerat.current > 0
+                        ? (
+                            (rusakBerat.current / panjangJalan.current) *
+                            100
+                          ).toFixed(2)
+                        : "-"}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
           </div>
 
           <div className="w-full p-1 mt-6">
             <h6 className="font-bold flex items-center gap-2 text-sm sm:text-md">
-              <ChevronDownCircle size={14} /> RINCIAN DATA PER STA
+              {isDataPerSta ? (
+                <>
+                  <ChevronUpCircle
+                    size={14}
+                    className="cursor-pointer"
+                    onClick={() => setOpenDataPerSta(false)}
+                  />
+                  RINCIAN DATA PER STA
+                </>
+              ) : (
+                <>
+                  <ChevronDownCircle
+                    size={14}
+                    className="cursor-pointer"
+                    onClick={() => setOpenDataPerSta(true)}
+                  />{" "}
+                  RINCIAN DATA PER STA
+                </>
+              )}
             </h6>
-            <Table className="mt-3">
-              <Table.Head className="text-xs sm:text-md">
+            <div
+              className={`transition-all duration-500 ease-in-out ${
+                isDataPerSta ? "max-h-[800px] opacity-100" : "max-h-0 overflow-hidden opacity-0"
+              }`}
+            >
+              <Table className="mt-3">
+                <Table.Head className="text-xs sm:text-md">
                   <Table.HeadCell className="font-bold text-black">
                     NOMOR RUAS
                   </Table.HeadCell>
-                  <Table.HeadCell className="font-bold text-black">STA</Table.HeadCell>
+                  <Table.HeadCell className="font-bold text-black">
+                    STA
+                  </Table.HeadCell>
                   <Table.HeadCell className="font-bold text-black">
                     TIPE PERMUKAAN
                   </Table.HeadCell>
                   <Table.HeadCell className="font-bold text-black">
                     KONDISI
                   </Table.HeadCell>
-                  <Table.HeadCell className="font-bold text-black">DETAIL</Table.HeadCell>
-              </Table.Head>
-              <TableBody>
-                {ruas?.sta &&
-                  ruas.sta.map((sta: any) => {
-                    sortSta(ruas.sta);
-                    return (
-                      <TableRow key={sta.id} className="text-xs sm:text-md">
-                        <TableCell className="text-gray-500">
-                          {sta.nomorRuas}
-                        </TableCell>
-                        <TableCell className="text-gray-500">
-                          {sta.sta}
-                        </TableCell>
-                        <TableCell className="text-gray-500">
-                          {sta.perkerasan}
-                        </TableCell>
-                        <TableCell className="text-gray-500">
-                          {sta.kondisi}
-                        </TableCell>
-                        <TableCell>
-                          <Button onClick={() => setSelectedSta(sta)}>
-                            <Eye size={16} />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
+                  <Table.HeadCell className="font-bold text-black">
+                    DETAIL
+                  </Table.HeadCell>
+                </Table.Head>
+                <TableBody>
+                  {ruas?.sta &&
+                    ruas.sta.map((sta: any) => {
+                      sortSta(ruas.sta);
+                      return (
+                        <TableRow key={sta.id} className="text-xs sm:text-md">
+                          <TableCell className="text-gray-500">
+                            {sta.nomorRuas}
+                          </TableCell>
+                          <TableCell className="text-gray-500">
+                            {sta.sta}
+                          </TableCell>
+                          <TableCell className="text-gray-500">
+                            {sta.perkerasan}
+                          </TableCell>
+                          <TableCell className="text-gray-500">
+                            {sta.kondisi}
+                          </TableCell>
+                          <TableCell>
+                            <Button onClick={() => setSelectedSta(sta)}>
+                              <Eye size={16} />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </div>
           </div>
         </>
       )}
